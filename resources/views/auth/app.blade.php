@@ -14,7 +14,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="body {{ $page }}" style="background-image: url('{{ asset('img/main/bg.png') }}')">
+<body class="body {{ $page }}" style="background-image: url('{{ asset('img/main/bg.jpg') }}')">
     <main class="main">
         @yield('main')
     </main>

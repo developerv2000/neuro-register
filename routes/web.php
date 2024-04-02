@@ -13,10 +13,10 @@ Route::controller(AuthenticatedSessionController::class)->group(function () {
 Route::middleware('auth')->controller(PatientController::class)->name('patients.')->group(function () {
     Route::get('/', 'index')->name('index'); // home page
     Route::get('patients/create', 'create')->middleware('admin')->name('create');
-    Route::get('patients/{item}', 'show')->name('show');
-    Route::get('patients/edit/{item}', 'edit')->middleware('admin')->name('edit');
+    Route::get('patients/{patient}', 'show')->name('show');
+    Route::get('patients/edit/{patient}', 'edit')->middleware('admin')->name('edit');
 
     Route::post('patients/store', 'store')->middleware('admin')->name('store');
-    Route::patch('patients/{item}', 'update')->middleware('admin')->name('update');
+    Route::patch('patients/{patient}', 'update')->middleware('admin')->name('update');
     Route::delete('patients/destroy', 'destroy')->middleware('admin')->name('destroy');
 });

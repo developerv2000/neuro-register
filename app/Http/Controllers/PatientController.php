@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
+use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
@@ -13,9 +14,9 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patients = Patient::select('name', 'birthday', 'address', 'created_at')
+        $patients = Patient::select('id', 'name', 'birthday', 'address', 'created_at')
             ->orderBy('id', 'desc')
-            ->paginate(40);
+            ->paginate(20);
 
         $searchItems = Patient::select('id', 'name')->orderBy('name')->get();
 
@@ -27,7 +28,7 @@ class PatientController extends Controller
      */
     public function create()
     {
-        //
+        return view('patients.create');
     }
 
     /**
@@ -35,7 +36,9 @@ class PatientController extends Controller
      */
     public function store(StorePatientRequest $request)
     {
-        //
+        Patient::create($request->all());
+
+        return redirect()->route('patients.index');
     }
 
     /**
@@ -43,7 +46,7 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        //
+        return view('patients.show', compact('patient'));
     }
 
     /**
@@ -51,7 +54,7 @@ class PatientController extends Controller
      */
     public function edit(Patient $patient)
     {
-        //
+        return view('patients.edit', ['item' => $patient]);
     }
 
     /**
@@ -59,14 +62,18 @@ class PatientController extends Controller
      */
     public function update(UpdatePatientRequest $request, Patient $patient)
     {
-        //
+        $patient->update($request->all());
+
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Patient $patient)
+    public function destroy(Request $request)
     {
-        //
+        Patient::findOrFail($request->id)->delete();
+
+        return redirect()->back();
     }
 }

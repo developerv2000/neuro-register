@@ -1,5 +1,4 @@
 const spinner = document.querySelector('.spinner');
-const deleteTargetModal = document.querySelector('.delete-target-modal');
 
 window.addEventListener('load', () => {
     // ********** Selectize **********
@@ -21,22 +20,6 @@ window.addEventListener('load', () => {
         plugins: ["auto_position"],
     });
 
-    // ********** Modal **********
-    // Show modal
-    document.querySelectorAll('[data-click-action="show-modal"]').forEach((item) => {
-        item.addEventListener('click', (evt) => {
-            hideAllActiveModals();
-            showModal(document.querySelector(evt.currentTarget.dataset.modalTarget));
-        });
-    });
-
-    // Hide modal
-    document.querySelectorAll('[data-click-action="hide-active-modals"]').forEach((item) => {
-        item.addEventListener('click', () => {
-            hideAllActiveModals();
-        });
-    });
-
     // ********** Simditor **********
     Simditor.locale = 'ru-RU';
 
@@ -51,37 +34,57 @@ window.addEventListener('load', () => {
         });
     });
 
-    document.querySelectorAll('[data-click-action="delete-target"]').forEach((item) => {
-        let input = deleteTargetModal.querySelector('input[name="ids[]"]');
-
-        item.addEventListener('click', (evt) => {
-            input.value = evt.currentTarget.dataset.targetId;
-            showModal(deleteTargetModal);
-        });
-    });
-
     // ********** Main Form **********
     // Show spinner to escape multiple submit button
     document.querySelector('.main-form.create-form, .main-form.edit-form')
         ?.addEventListener('submit', () => {
             showSpinner();
         });
-});
 
+    // ************ MODAL ************
+    function showModal(modal) {
+        modal.classList.add('modal--visible');
+    }
 
-function showModal(modal) {
-    modal.classList.add('modal--visible');
-}
+    function hideModal(modal) {
+        modal.classList.remove('modal--visible');
+    }
 
-function hideModal(modal) {
-    modal.classList.remove('modal--visible');
-}
+    function hideAllActiveModals() {
+        document.querySelectorAll('.modal--visible').forEach((modal) => {
+            hideModal(modal);
+        });
+    }
 
-function hideAllActiveModals() {
-    document.querySelectorAll('.modal--visible').forEach((modal) => {
-        hideModal(modal);
+    // Show modal
+    document.querySelectorAll('[data-action="show-modal"]').forEach((item) => {
+        item.addEventListener('click', (evt) => {
+            hideAllActiveModals();
+            let modal = document.querySelector(evt.target.dataset.modalTarget);
+            showModal(modal);
+        });
     });
-}
+
+    // Hide modal
+    document.querySelectorAll('[data-action="hide-modal"], .modal__overlay').forEach((item) => {
+        item.addEventListener('click', () => {
+            hideAllActiveModals();
+        });
+    });
+
+    // Single Item Destroy Modal
+    document.querySelectorAll('.table__button--destroy').forEach((item) => {
+        item.addEventListener('click', (evt) => {
+            let modal = document.querySelector('.modal--single-destroy');
+            let input = modal.querySelector('[name="id"]');
+
+            // Change input value and show modal
+            input.value = evt.target.dataset.itemId;
+            showModal(modal);
+        });
+    });
+    // ************ /END MODAL ************
+});
 
 function showSpinner() {
     spinner.classList.add('spinner--visible');
