@@ -16,12 +16,14 @@
             'crumbs' => ['Всего пациентов ' . $patients->total()],
         ])
 
-        <div class="prehead__actions">
-            <a class="button button--action " href="{{ route('patients.create') }}">
-                <span class="button__icon material-symbols-outlined">add</span>
-                <span class="button__text">Добавить</span>
-            </a>
-        </div>
+        @if (request()->user()->is_admin)
+            <div class="prehead__actions">
+                <a class="button button--action " href="{{ route('patients.create') }}">
+                    <span class="button__icon material-symbols-outlined">add</span>
+                    <span class="button__text">Добавить</span>
+                </a>
+            </div>
+        @endif
     </div>
 
     {{-- Table --}}
