@@ -42,7 +42,7 @@
             @foreach ($patients as $patient)
                 <tr>
                     <td>{{ $patient->name }}</td>
-                    <td>{{ $patient->birthday->isoformat('DD MMM Y') }}</td>
+                    <td>{{ $patient->birthday?->isoformat('DD MMM Y') }}</td>
                     <td>{{ $patient->address }}</td>
                     <td>{{ $patient->created_at->isoformat('DD MMM Y HH:mm:ss') }}</td>
 

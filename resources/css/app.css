@@ -113,6 +113,13 @@ a {
     color: var(--main-color);
 }
 
+.main-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--secondary-color);
+    margin-bottom: 0;
+}
+
 .main-container {
     max-width: 1200px;
     display: flex;
@@ -950,9 +957,29 @@ a {
 
 
 /* ------------ Patient card ------------ */
+.patient-card-main-title {
+    text-align: center;
+    color: var(--secondary-color);
+    padding: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
 .patient-card {
     margin: 20px 0;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-weight: 300;
+    color: black;
+}
+
+.patient-card__title {
+    color: var(--secondary-color);
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .patient-card p {
@@ -965,5 +992,46 @@ a {
 
 .patient-card strong {
     margin-right: 16px;
+    font-weight: 400;
+}
+
+.patient-card__row {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.patient-card__row > div {
+    width: 50%;
+}
+
+/* Personal */
+.patient-card__personal-info {
+    padding: 20px;
+}
+
+/* Period */
+.patient-card__period {
+    padding: 20px;
+}
+
+.patient-card__development {
+    padding: 20px;
+}
+
+.patient-card__measurements {
+    padding: 20px;
+}
+
+.patient-card__table {
+    color: black;
+}
+
+.patient-card__table thead {
+    color: black;
+}
+
+.patient-card__table td {
+    border: 1px solid rgb(237, 242, 249);
+    color: black;
 }
 /* ------------ /end Patient card ------------ */
